@@ -52,3 +52,10 @@ RUN make install
 
 # Install cpplint
 RUN pip3 install cpplint
+
+# Link libraries
+RUN ldconfig
+
+# Clean up source code
+WORKDIR /
+RUN rm -rf /usr/local/src/*
