@@ -53,14 +53,25 @@ RUN make install
 # Install cpplint
 RUN pip3 install cpplint
 
-# Install nlohmann/json
-RUN apt-get update -y && \
-  apt-get install -y --no-install-recommends \
-  nlohmann-json3-dev
-
+# Install restbed
 RUN git clone --recursive "https://github.com/corvusoft/restbed.git" /usr/local/src/restbed
 RUN mkdir /usr/local/src/restbed/build
 WORKDIR /usr/local/src/restbed/build
 RUN cmake -DBUILD_SSL=NO ..
-RUN make DESTDIR=/usr/local install
+RUN make install
 RUN make tests
+
+# Copy restbed files to better location
+RUN cp -r /usr/local/src/restbed/distribution/include/* /usr/local/include
+RUN cp -a /usr/local/src/restbed/distribution/library/* /usr/local/lib
+
+# Link the libraries
+RUN ldconfig
+
+# Install nlohmann/json
+RUN git clone "https://github.com/nlohmann/json" /usr/local/src/nlohmann
+RUN cp -r /usr/local/src/nlohmann/single_include/* /usr/local/include/
+
+# Clean up source code to keep image smaller
+WORKDIR /
+RUN rm -rf /usr/local/src/*
