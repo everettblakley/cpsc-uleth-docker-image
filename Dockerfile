@@ -52,15 +52,3 @@ RUN make install
 
 # Install cpplint
 RUN pip3 install cpplint
-
-# Install nlohmann/json
-RUN apt-get update -y && \
-  apt-get install -y --no-install-recommends \
-  nlohmann-json3-dev
-
-RUN git clone --recursive "https://github.com/corvusoft/restbed.git" /usr/local/src/restbed
-RUN mkdir /usr/local/src/restbed/build
-WORKDIR /usr/local/src/restbed/build
-RUN cmake -DBUILD_SSL=NO ..
-RUN make DESTDIR=/usr/local install
-RUN make tests
