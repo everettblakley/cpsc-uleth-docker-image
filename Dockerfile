@@ -28,6 +28,7 @@ RUN apt-get update -y && \
   bison \
   ca-certificates \
   cppcheck \
+  clang-format \
   tar && \  
   apt-get autoclean && \
   apt-get autoremove && \
@@ -59,7 +60,7 @@ RUN mkdir /usr/local/src/restbed/build
 WORKDIR /usr/local/src/restbed/build
 RUN cmake -DBUILD_SSL=NO ..
 RUN make install
-RUN make tests
+RUN make test
 
 # Copy restbed files to better location
 RUN cp -r /usr/local/src/restbed/distribution/include/* /usr/local/include
