@@ -76,3 +76,7 @@ RUN cp -r /usr/local/src/nlohmann/single_include/* /usr/local/include/
 # Clean up source code to keep image smaller
 WORKDIR /
 RUN rm -rf /usr/local/src/*
+
+# Install ZSH with "avit" theme
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.1/zsh-in-docker.sh)" -- \
+  -t avit -p git
