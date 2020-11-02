@@ -80,7 +80,7 @@ RUN rm -rf /usr/local/src/*
 # Install wget
 RUN apt-get update -y && \
   apt-get install -y --no-install-recommends \ 
-  wget \
+  wget && \
   apt-get autoclean && \
   apt-get autoremove && \
   apt-get clean && \
