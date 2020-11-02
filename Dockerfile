@@ -77,6 +77,15 @@ RUN cp -r /usr/local/src/nlohmann/single_include/* /usr/local/include/
 WORKDIR /
 RUN rm -rf /usr/local/src/*
 
+# Install wget
+RUN apt-get update -y && \
+  apt-get install -y --no-install-recommends \ 
+  wget \
+  apt-get autoclean && \
+  apt-get autoremove && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
+
 # Install ZSH with "avit" theme
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.1/zsh-in-docker.sh)" -- \
   -t avit -p git
