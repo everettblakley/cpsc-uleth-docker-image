@@ -12,10 +12,10 @@ RUN yum update -y \
   && yum clean all
 
 # Install development tools
-RUN yum group install "Development Tools"
+RUN yum group install -y "Development Tools"
 
 # install manuals
-RUN yum install man-pages
+RUN yum install -y man-pages
 
 # # Install Doxygen
 # RUN git clone "https://github.com/doxygen/doxygen.git" /usr/local/src/doxygen
