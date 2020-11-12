@@ -14,8 +14,25 @@ RUN yum update -y \
 # Install development tools
 RUN yum group install -y "Development Tools"
 
-# install manuals
-RUN yum install -y man-pages
+# install some things
+RUN yum install -y \
+  epel-release \
+  valgrind \
+  cmake \
+  clang 
+
+# install some more
+RUN yum install -y \
+  lcov \
+  cppcheck \
+  && yum clean all
+
+# install pip
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
+  && python get-pip.py
+
+# Install cpplint
+RUN pip install cpplint
 
 # # Install Doxygen
 # RUN git clone "https://github.com/doxygen/doxygen.git" /usr/local/src/doxygen
@@ -33,8 +50,6 @@ RUN yum install -y man-pages
 # RUN make
 # RUN make install
 
-# # Install cpplint
-# RUN pip3 install cpplint
 
 # # Install restbed
 # RUN git clone --recursive "https://github.com/corvusoft/restbed.git" /usr/local/src/restbed
